@@ -1,10 +1,10 @@
 import "./App.css";
-import HomeServicesForm from "./HomeServices";
+import HomeServices from "./components/HomeServices";
 
 function App() {
   return (
     <div className="App_UC">
-      <HomeServicesForm />
+      <HomeServices />
     </div>
   );
 }

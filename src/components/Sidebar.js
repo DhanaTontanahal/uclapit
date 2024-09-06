@@ -46,6 +46,9 @@ const Sidebar = ({ open, setActiveTab, setOpen }) => (
     <SidebarLink href="#" onClick={() => setActiveTab("table")}>
       Table
     </SidebarLink>
+    <SidebarLink href="#" onClick={() => setActiveTab("managedesignation")}>
+      Designation Manager
+    </SidebarLink>
   </SidebarWrapper>
 );
 

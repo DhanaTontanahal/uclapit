@@ -43,6 +43,8 @@ const MainContent = styled.main`
 
 const HomeServices = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [activeTab, setActiveTab] = useState("form");
+
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -60,8 +62,7 @@ const HomeServices = () => {
   const [activeTab, setActiveTab] = useState("form");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Hardcoded designation options
-  const hardcodedDesignationOptions = [
+  const designationOptions = [
     "Carpenter",
     "Electrician",
     "Bathroom Cleaning",
@@ -74,29 +75,6 @@ const HomeServices = () => {
     "Housekeeping",
     "Baby Sitter",
     "Other",
-  ];
-
-  // Firebase designations
-  const [firebaseDesignations, setFirebaseDesignations] = useState([]);
-
-  // Fetch designations from Firebase Realtime Database
-  useEffect(() => {
-    const designationsRef = ref(database, "designations");
-    onValue(designationsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const fetchedDesignations = Object.values(data).map(
-          (item) => item.name
-        );
-        setFirebaseDesignations(fetchedDesignations);
-      }
-    });
-  }, []);
-
-  // Combine hardcoded and fetched designations
-  const combinedDesignations = [
-    ...hardcodedDesignationOptions,
-    ...firebaseDesignations,
   ];
 
   useEffect(() => {
@@ -175,14 +153,20 @@ const HomeServices = () => {
 
   return (
     <Layout>
+      {/* Sidebar */}
+      {/* <Sidebar open={menuOpen} setActiveTab={setActiveTab} /> */}
       <Sidebar
         open={menuOpen}
         setOpen={setMenuOpen}
         setActiveTab={setActiveTab}
       />
+
+      {/* Main content area */}
       <div style={{ flexGrow: 1 }}>
+        {/* Header */}
         <Header toggleSidebar={toggleSidebar} />
 
+        {/* Main content */}
         <MainContent>
           {activeTab === "form" && (
             <FormComponent
@@ -190,7 +174,7 @@ const HomeServices = () => {
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               showOtherInput={showOtherInput}
-              designations={combinedDesignations} // Passing combined designations to FormComponent
+              designations={designationOptions} // Passing designation options to FormComponent
             />
           )}
 

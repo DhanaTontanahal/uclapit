@@ -7,14 +7,6 @@ const Table = styled.table`
   max-width: 800px;
   margin: 20px auto;
   border-collapse: collapse;
-
-  /* Hide all columns except S.No and Name in mobile view */
-  @media (max-width: 768px) {
-    td:nth-child(n + 3),
-    th:nth-child(n + 3) {
-      display: none;
-    }
-  }
 `;
 
 const Th = styled.th`
@@ -64,25 +56,10 @@ const CountWrapper = styled.div`
   font-weight: bold;
 `;
 
-const ColumnToggleWrapper = styled.div`
-  text-align: center;
-  margin: 20px 0;
-`;
-
 const TableComponent = ({ servicesData, handleEdit, handleDelete }) => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5; // You can adjust this number for more/less rows per page
-
-  // State for toggling column visibility
-  const [visibleColumns, setVisibleColumns] = useState({
-    contact: true,
-    alternateContact: true,
-    area: true,
-    city: true,
-    pincode: true,
-    designation: true,
-  });
 
   // Pagination logic
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -98,70 +75,10 @@ const TableComponent = ({ servicesData, handleEdit, handleDelete }) => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  // Toggle column visibility
-  const toggleColumn = (column) => {
-    setVisibleColumns((prevState) => ({
-      ...prevState,
-      [column]: !prevState[column],
-    }));
-  };
-
   return (
     <>
       {/* Count Display */}
       <CountWrapper>Total Services: {servicesData.length}</CountWrapper>
-
-      {/* Column Toggle Controls */}
-      <ColumnToggleWrapper>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.contact}
-            onChange={() => toggleColumn("contact")}
-          />
-          Contact
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.alternateContact}
-            onChange={() => toggleColumn("alternateContact")}
-          />
-          Alternate Contact
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.area}
-            onChange={() => toggleColumn("area")}
-          />
-          Area
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.city}
-            onChange={() => toggleColumn("city")}
-          />
-          City
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.pincode}
-            onChange={() => toggleColumn("pincode")}
-          />
-          Pincode
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={visibleColumns.designation}
-            onChange={() => toggleColumn("designation")}
-          />
-          Designation
-        </label>
-      </ColumnToggleWrapper>
 
       {/* Table */}
       <Table>
@@ -169,12 +86,12 @@ const TableComponent = ({ servicesData, handleEdit, handleDelete }) => {
           <tr>
             <Th>S.No</Th>
             <Th>Name</Th>
-            {visibleColumns.contact && <Th>Contact</Th>}
-            {visibleColumns.alternateContact && <Th>Alternate Contact</Th>}
-            {visibleColumns.area && <Th>Area</Th>}
-            {visibleColumns.city && <Th>City</Th>}
-            {visibleColumns.pincode && <Th>Pincode</Th>}
-            {visibleColumns.designation && <Th>Designation</Th>}
+            <Th>Contact</Th>
+            <Th>Alternate Contact</Th>
+            <Th>Area</Th>
+            <Th>City</Th>
+            <Th>Pincode</Th>
+            <Th>Designation</Th>
             <Th>Actions</Th>
           </tr>
         </thead>
@@ -184,14 +101,12 @@ const TableComponent = ({ servicesData, handleEdit, handleDelete }) => {
               <tr key={id}>
                 <Td>{indexOfFirstRow + index + 1}</Td> {/* S.No Column */}
                 <Td>{entry.name}</Td>
-                {visibleColumns.contact && <Td>{entry.contact}</Td>}
-                {visibleColumns.alternateContact && (
-                  <Td>{entry.alternateContact}</Td>
-                )}
-                {visibleColumns.area && <Td>{entry.area}</Td>}
-                {visibleColumns.city && <Td>{entry.city}</Td>}
-                {visibleColumns.pincode && <Td>{entry.pincode}</Td>}
-                {visibleColumns.designation && <Td>{entry.designation}</Td>}
+                <Td>{entry.contact}</Td>
+                <Td>{entry.alternateContact}</Td>
+                <Td>{entry.area}</Td>
+                <Td>{entry.city}</Td>
+                <Td>{entry.pincode}</Td>
+                <Td>{entry.designation}</Td>
                 <Td>
                   <IconButton onClick={() => handleEdit(id, entry)}>
                     <FaEdit />

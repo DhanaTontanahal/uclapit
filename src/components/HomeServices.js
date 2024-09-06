@@ -41,6 +41,9 @@ const MainContent = styled.main`
 `;
 
 const HomeServices = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [activeTab, setActiveTab] = useState("form");
+
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -150,7 +153,12 @@ const HomeServices = () => {
   return (
     <Layout>
       {/* Sidebar */}
-      <Sidebar open={menuOpen} setActiveTab={setActiveTab} />
+      {/* <Sidebar open={menuOpen} setActiveTab={setActiveTab} /> */}
+      <Sidebar
+        open={menuOpen}
+        setOpen={setMenuOpen}
+        setActiveTab={setActiveTab}
+      />
 
       {/* Main content area */}
       <div style={{ flexGrow: 1 }}>

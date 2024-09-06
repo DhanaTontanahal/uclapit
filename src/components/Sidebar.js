@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FaTimes } from "react-icons/fa";
 
 const SidebarWrapper = styled.nav`
   width: 250px;
@@ -11,6 +12,8 @@ const SidebarWrapper = styled.nav`
   gap: 20px;
   position: fixed;
   left: ${(props) => (props.open ? "0" : "-100%")};
+  top: 0;
+  height: 100%;
   transition: left 0.3s ease;
 `;
 
@@ -25,8 +28,18 @@ const SidebarLink = styled.a`
   }
 `;
 
-const Sidebar = ({ open, setActiveTab }) => (
+const CloseIcon = styled(FaTimes)`
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+`;
+
+const Sidebar = ({ open, setActiveTab, setOpen }) => (
   <SidebarWrapper open={open}>
+    <CloseIcon onClick={() => setOpen(false)} />
     <SidebarLink href="#" onClick={() => setActiveTab("form")}>
       Form
     </SidebarLink>
